@@ -4,19 +4,39 @@ public class Map {
 	
 	private int size;
 	private Tile[][] data;
+	private Player player;
 	
 	Map(int size) {
 		data = new Tile[size][size];
 		this.size = size;
-		
 		for (int y = 0; y < size; y++) {
 			
 			for (int x = 0; x < size; x++) {
 				data[y][x] = new Tile(this, "rock", x, y);
+//				Rock rock = new Rock(this, x, y);
+//				this.addEntity(rock);
 			}
 			
 		}
 		
+	}
+	
+	public boolean addEntity(Entity entity) { 
+		int[] entityPos = entity.getPos();
+		if (!data[entityPos[1]][entityPos[0]].isEmpty()) {
+			data[entityPos[1]][entityPos[0]].setContent(entity);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void setPlayer(Player player) { 
+		this.player = player;
+	}
+
+	public Player getPlayer() { 
+		return this.player;
 	}
 	
 	public Tile getTile(int[] position) {

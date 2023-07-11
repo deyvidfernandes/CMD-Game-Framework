@@ -4,31 +4,47 @@ import java.util.Scanner;
 public class Main {
 
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		Scanner keyboard = new Scanner(System.in);
-		Map map1 = new Map(10);
-		Character player = new Character(map1, "player", 1, 1);
+		Map map1 = new Map(16);
+		Player player = new Player(map1, 1, 1);
+		int counter = 0;
+		boolean action = false;
+		String entry = "ms1";
 		
 		boolean result = true;
 		
 		while(true) {
-	        if (!result) {
-	        	try {
-	        	System.out.println(map1.getTile(1, 0).getContent().getName() + "\n");
-	        	} catch(java.lang.NullPointerException error) {
-		        	System.out.println("aahahah" + "\n");
-
-	    		}
-	        }
 	        generateFrame(map1.getSize() * 2, 1);
 			System.out.println(map1.draw());
 			generateFrame(map1.getSize() * 2, 2);
 			System.out.println("\n" + Arrays.toString(player.getPos()));
 			breakLines(36 - map1.getSize());
-			result = player.walk(keyboard.nextLine());
-			System.out.println("½");
 			
+			if (!action) {
+				entry = keyboard.nextLine();
+				actInaRow(counter, action, player, entry);
+				action = true;
+			} else {
+				actInaRow(counter, action, player, entry);
+			}
+			System.out.println("½");
 		}
+	}
+	
+	static void actInaRow(int counter, boolean action, Player player, String entry) throws InterruptedException {
+		int char0 = Integer.parseInt(String.valueOf(entry.charAt(2)));
+		entry = entry.substring(0, entry.length()-1);
+		
+		if (counter < char0) {
+			counter++;
+			player.act(entry);
+			Thread.sleep(1000);
+		} else {
+			counter = 0;
+			action = false;
+		}
+		
 	}
 	
 	static public void breakLines(int num) {

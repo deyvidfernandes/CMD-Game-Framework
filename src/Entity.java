@@ -1,5 +1,6 @@
 
 public abstract class Entity {
+	protected int health;
 	protected String name;
 	protected int[] position = new int[2];
 	protected Map current_map;
@@ -17,6 +18,13 @@ public abstract class Entity {
 		this.position[0] = x;
 		this.position[1] = y;
 		this.current_map.getTile(position).setContent(this);
+	}
+	
+	public void receiveDamage(int dmg) {
+		this.health -= dmg;
+		if (health < 0) {
+			this.current_map.getTile(this.getPos()).setContent(null);;
+		}
 	}
 	
 	public int[] getPos() {
