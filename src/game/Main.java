@@ -1,10 +1,11 @@
+package game;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 
 	
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws Exception {
 		Scanner keyboard = new Scanner(System.in);
 		Map map1 = new Map(16);
 		Player player = new Player(map1, 1, 1);
@@ -32,14 +33,18 @@ public class Main {
 		}
 	}
 	
-	static void actInaRow(int counter, boolean action, Player player, String entry) throws InterruptedException {
+	static void actInaRow(int counter, boolean action, Player player, String entry) throws Exception {
 		int char0 = Integer.parseInt(String.valueOf(entry.charAt(2)));
 		entry = entry.substring(0, entry.length()-1);
 		
 		if (counter < char0) {
 			counter++;
-			player.act(entry);
-			Thread.sleep(1000);
+			if (!player.act(entry)) {
+				counter = 0;
+				action = false;
+			} else {
+				Thread.sleep(1000);
+			}
 		} else {
 			counter = 0;
 			action = false;

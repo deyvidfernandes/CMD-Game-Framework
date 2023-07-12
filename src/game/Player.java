@@ -1,3 +1,4 @@
+package game;
 
 public final class Player extends Character {
 	Player(Map map, int x, int y) {
@@ -55,16 +56,24 @@ public final class Player extends Character {
 		
 	}
 	
-	public boolean act(String entry) {
+	public boolean act(String entry) throws Exception {
 		char char0 = entry.charAt(0);
 		char char1 = entry.charAt(1);
-		if (char0=='h') {
+		
+		switch(char0) {
+		case 'h':
 			hit(String.valueOf(char1));
 			return true;
-		} else if (char0=='w') {
-			walk(String.valueOf(char1));
+		case 'w':
+			try {
+				this.walk(String.valueOf(char1));
+			} catch(xutility.exceptions.invalidMethodInput exc) {
+				System.out.println(exc.getMessage());
+				exc.printStackTrace();
+				return false;
+			}
 			return true;
-		} else {
+		default:
 			return false;
 		}
 	}
