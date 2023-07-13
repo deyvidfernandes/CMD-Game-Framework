@@ -56,12 +56,13 @@ public abstract class Entity {
 	
 	public boolean move(String dir) throws xutility.exceptions.invalidMethodInput {
 		int[] positionVariation = this.convertDirToXY(dir);
-		Tile self_tile = this.current_map.getTile(this.position);
+		Tile current_tile = this.current_map.getTile(this.position);
 		
 		if (this.checkMovment(positionVariation)) {
-			self_tile.removeContent();
+			current_tile.removeContent();
 			this.position = xutility.vector.sumInt(this.position, positionVariation);
-			self_tile.setContent(this);
+			Tile new_tile = this.current_map.getTile(this.position);
+			new_tile.setContent(this);
 			return true;
 		} else {
 			return false;

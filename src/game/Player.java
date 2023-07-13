@@ -56,7 +56,7 @@ public final class Player extends Character {
 		
 	}
 	
-	public boolean act(String entry) throws Exception {
+	public boolean act(String entry) {
 		char char0 = entry.charAt(0);
 		char char1 = entry.charAt(1);
 		
