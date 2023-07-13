@@ -56,17 +56,15 @@ public final class Player extends Character {
 		
 	}
 	
-	public boolean act(String entry) {
-		char char0 = entry.charAt(0);
-		char char1 = entry.charAt(1);
+	public boolean act(UserInput userInput) {
 		
-		switch(char0) {
-		case 'h':
-			hit(String.valueOf(char1));
+		switch(userInput.getAction()) {
+		case "h":
+			hit(userInput.getDir());
 			return true;
-		case 'w':
+		case "w":
 			try {
-				this.walk(String.valueOf(char1));
+				this.walk(userInput.getDir());
 			} catch(xutility.exceptions.invalidMethodInput exc) {
 				exc.printStackTrace();
 				return false;
