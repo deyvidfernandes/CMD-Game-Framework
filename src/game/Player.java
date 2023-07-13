@@ -65,7 +65,7 @@ public final class Player extends Character {
 		case "w":
 			try {
 				this.walk(userInput.getDir());
-			} catch(xutility.exceptions.invalidMethodInput exc) {
+			} catch(xutility.exceptions.InvalidMethodInput exc) {
 				exc.printStackTrace();
 				return false;
 			}

@@ -14,7 +14,7 @@ public class Character extends Entity {
 		this.character_type = character_type;
 	}
 	
-	public Boolean walk(String dir) throws xutility.exceptions.invalidMethodInput {
+	public Boolean walk(String dir) throws xutility.exceptions.InvalidMethodInput {
 		return this.move(dir);
 	}
 			

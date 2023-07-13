@@ -30,7 +30,7 @@ public abstract class Entity {
 	}
 	
 	
-	private int[] convertDirToXY(String dir) throws xutility.exceptions.invalidMethodInput {
+	private int[] convertDirToXY(String dir) throws xutility.exceptions.InvalidMethodInput {
 		switch (dir) {
 			case "w":
 				return new int[] {0, -1};
@@ -41,7 +41,7 @@ public abstract class Entity {
 			case "d":
 				return new int[] {1, 0};
 			default:
-				throw new xutility.exceptions.invalidMethodInput("convertDirToXY", dir);
+				throw new xutility.exceptions.InvalidMethodInput("convertDirToXY", dir);
 		}
 	}
 	
@@ -54,7 +54,7 @@ public abstract class Entity {
 		}
 	}
 	
-	public boolean move(String dir) throws xutility.exceptions.invalidMethodInput {
+	public boolean move(String dir) throws xutility.exceptions.InvalidMethodInput {
 		int[] positionVariation = this.convertDirToXY(dir);
 		Tile current_tile = this.current_map.getTile(this.position);
 		

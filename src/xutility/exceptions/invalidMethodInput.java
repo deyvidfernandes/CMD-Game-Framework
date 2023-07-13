@@ -1,6 +1,6 @@
 package xutility.exceptions;
 
-public class invalidMethodInput extends Exception{
+public class InvalidMethodInput extends Exception{
 	/**
 	 * 
 	 */
@@ -8,7 +8,7 @@ public class invalidMethodInput extends Exception{
 	private String methodName;
 	private String invalidInput;
 	
-	public invalidMethodInput(String methodName, Object invalidInput) {
+	public InvalidMethodInput(String methodName, Object invalidInput) {
 		super();
 		this.invalidInput = String.valueOf(invalidInput);
 		this.methodName = methodName;
