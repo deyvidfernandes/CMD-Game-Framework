@@ -22,7 +22,6 @@ public class UserInput {
 				this.turnsToRun = 1; // In the absence of the third char, just one turn will be runned
 			}
 			
-
 	}
 	
 	public int getTurnsToRun() {

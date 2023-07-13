@@ -3,14 +3,18 @@ package game;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import xutility.exceptions.InvalidUserInput;
+
 public class Game {
 	
-	static Map map1 = new Map(16);
-	static Player player = new Player(map1, 1, 1);
-	static int counter = 0;
-	static boolean action = false;
-	static String entry = "ms1";
-	static boolean result = true;
+	static private  Map map1 = new Map(16);
+	static private  Player player = new Player(map1, 1, 1);
+	static private  int counter = 0;
+	static private  boolean action = false;
+	static private String entry = "ms1";
+	static private boolean turnAuthorized = true;
+	static private String userErrorMessage;
+	static private UserInput userInput;
 
 	
 	static public void draw() {
@@ -21,9 +25,21 @@ public class Game {
 		breakLines(36 - map1.getSize());
 	}
 	
-
+	static private String generateErrorMessage(Exception exc) {
+		return "foo";
+	}
 	
-	static public void updateLogic(UserInput userInput) {
+	static public void validateConvertUserInput(String input) {
+		try {
+			userInput = new UserInput(input);
+		} catch (InvalidUserInput exc) {
+			turnAuthorized = false;
+			userErrorMessage = generateErrorMessage(exc);
+		}
+	}	
+	
+	static public void updateLogic(String input) {
+		validateConvertUserInput(input);
 		runTurn(userInput);
 	}
 	
@@ -60,7 +76,7 @@ public class Game {
 //		}
 //		
 //	}
-	
+
 	static public void breakLines(int num) {
 		String product = "";
 		for (int l = 0; l <= num + 1; l++) {

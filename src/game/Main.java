@@ -10,7 +10,7 @@ public class Main {
 		while(true) {
 			Game.draw();
 			String entry = keyboard.nextLine();
-			Game.updateLogic(new UserInput(entry));
+			Game.updateLogic(entry);
 		}
 	}
 	

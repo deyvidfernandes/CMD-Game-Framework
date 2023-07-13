@@ -1,6 +1,6 @@
 package xutility.exceptions;
 
-public class InvalidUserInput extends Exception{
+public class InvalidUserInput extends Exception {
 	/**
 	 * 
 	 */
@@ -13,6 +13,14 @@ public class InvalidUserInput extends Exception{
 		super();
 		this.invalidInput = invalidInput;
 		this.charLabel = charLabel;
+	}
+	
+	public String getCharLabel() {
+		return this.charLabel;
+	}
+
+	public String getName() {
+		return this.charLabel;
 	}
 	
 	@Override
