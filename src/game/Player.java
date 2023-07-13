@@ -68,7 +68,6 @@ public final class Player extends Character {
 			try {
 				this.walk(String.valueOf(char1));
 			} catch(xutility.exceptions.invalidMethodInput exc) {
-				System.out.println(exc.getMessage());
 				exc.printStackTrace();
 				return false;
 			}
