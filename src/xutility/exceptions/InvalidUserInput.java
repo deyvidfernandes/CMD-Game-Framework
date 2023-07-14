@@ -1,26 +1,37 @@
 package xutility.exceptions;
 
-public class InvalidUserInput extends Exception {
+public class InvalidUserInput extends Printable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private String invalidInput;
 	private String charLabel;
-
+	private String id;
 	
-	public InvalidUserInput(String invalidInput, String charLabel) {
+	public InvalidUserInput(String invalidInput, String charLabel, String id) {
 		super();
 		this.invalidInput = invalidInput;
 		this.charLabel = charLabel;
+		this.id = id;
+	}
+	public InvalidUserInput(String id) {
+		super();
+		this.id = id;
 	}
 	
 	public String getCharLabel() {
 		return this.charLabel;
 	}
+	
+	@Override
+	public String getInvalidInput() {
+		return this.invalidInput;
+	}
 
-	public String getName() {
-		return this.charLabel;
+	@Override
+	public String getId() {
+		return this.id;
 	}
 	
 	@Override

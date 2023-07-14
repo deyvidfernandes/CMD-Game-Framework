@@ -7,10 +7,11 @@ import xutility.exceptions.InvalidUserInput;
 
 public class Game {
 	
-	static private  Map map1 = new Map(16);
-	static private  Player player = new Player(map1, 1, 1);
-	static private  int counter = 0;
-	static private  boolean action = false;
+	static private Map map1 = new Map(16);
+	static private Player player = new Player(map1, 1, 1);
+	static private int counter = 0;
+	static private int dontBreakLines = 0;
+	static private boolean action = false;
 	static private String entry = "ms1";
 	static private boolean turnAuthorized = true;
 	static private String userErrorMessage;
@@ -18,15 +19,43 @@ public class Game {
 
 	
 	static public void draw() {
-        generateFrame(map1.getSize() * 2, 1);
+
+        printErrorMessage();
+		generateFrame(map1.getSize() * 2, 1);
 		System.out.println(map1.draw());
 		generateFrame(map1.getSize() * 2, 2);
 		System.out.println("\n" + Arrays.toString(player.getPos()));
-		breakLines(36 - map1.getSize());
+		breakLines(36 - map1.getSize() - dontBreakLines);
+		dontBreakLines = 0;
 	}
 	
-	static private String generateErrorMessage(Exception exc) {
+	static private void printErrorMessage() {
+		if (!turnAuthorized) {
+			System.out.println(userErrorMessage);
+			turnAuthorized = true;
+			dontBreakLines++;
+		}
+	}
+	
+	static private String generateErrorMessage(xutility.exceptions.Printable exc) {
+		if (exc instanceof xutility.exceptions.InvalidUserInput) {
+			
+			switch(exc.getId()) {
+			case "direction-missing":
+				return "É nescessário inserir um valor para o argumento \"direção\"";
+			case "direction-invalid input":
+				return "\"" + exc.getInvalidInput() + "\" não é um valor válido para a entrada \"direção\"";
+			case "action-missing":
+				return "É nescessário inserir um valor para a entrada \"ação\"";
+			case "times-invalid input":
+				return "\"" + exc.getInvalidInput() + "\" não é um valor válido para a entrada \"vezes\"";
+			case "overflow":
+				return "O formato a entrada deve possuir no máximo 3 caracteres (ação-direção-vezes)";
+			}
+			
+		}
 		return "foo";
+
 	}
 	
 	static public void validateConvertUserInput(String input) {
@@ -40,7 +69,9 @@ public class Game {
 	
 	static public void updateLogic(String input) {
 		validateConvertUserInput(input);
-		runTurn(userInput);
+		if (turnAuthorized) {
+			runTurn(userInput);
+		}
 	}
 	
 	static public void runTurn(UserInput userInput) {
