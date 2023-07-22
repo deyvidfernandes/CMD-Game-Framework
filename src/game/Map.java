@@ -14,8 +14,8 @@ public class Map {
 			
 			for (int x = 0; x < size; x++) {
 				data[y][x] = new Tile(this, "rock", x, y);
-//				Rock rock = new Rock(this, x, y);
-//				this.addEntity(rock);
+				Rock rock = new Rock(this, x, y);
+				this.addEntity(rock);
 			}
 			
 		}

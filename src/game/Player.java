@@ -8,7 +8,7 @@ public final class Player extends Character {
 	
 	private boolean checkMine(int x, int y) {
 		try {
-			return true; //this.current_map.getTile(this.position[0] + x, this.position[1] + y).getContent().getName().equals("rock");
+			return true;
 		}
 		catch (java.lang.ArrayIndexOutOfBoundsException error) {
 		   return false;

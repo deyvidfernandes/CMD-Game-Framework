@@ -1,0 +1,16 @@
+
+
+AB (ação básica): action-direction-times
+
+AC (ação composta): AB-AB-AB...
+
+S (script): n(AC)
+
+---- Um script é em suma uma ação composta, assim um sript pode ser passado como ação composta para outro script ----
+
+Comandos
+
+--conf
+--inv
+--insp
+--save

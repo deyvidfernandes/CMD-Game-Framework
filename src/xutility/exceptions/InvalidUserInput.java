@@ -1,10 +1,7 @@
 package xutility.exceptions;
 
 public class InvalidUserInput extends Printable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -8726797605721135939L;
 	private String invalidInput;
 	private String charLabel;
 	private String id;
