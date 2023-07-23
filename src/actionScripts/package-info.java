@@ -1,14 +1,15 @@
 /**
  * This package implements action scripts, i.e. several actions within just one input
  * <p>
- * There is three input complexity levels: BA (Basic Action) CA (Compound Action) S (Script)
+ * There is three input complexity levels: BA (Basic Action) S (Script) CS (Complex Script)
  * </p>
  * 
- * </p>
+ *
  * Structures:
  * BA: action-direction-times
- * CA: BA-BA-BA...
- * S:  n(CA)
+ * S: BA-BA-BA...
+ * CS:  n(S)
+ *
  *
  * @author Deyvid Guedes Fernandes
  */
