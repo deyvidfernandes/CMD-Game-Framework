@@ -1,5 +1,4 @@
-[![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/deyvidfernandes/CommandPromptGame/main/README.pt-br.md)
-
+[![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/deyvidfernandes/CommandPromptGame/blob/db6ebdd33913ce6d777ecf366635c074c06d3f4c/README.pt-br.md)
 # Command Prompt Game
 
 A CMD turn-based ASCII RPG game made with Java
