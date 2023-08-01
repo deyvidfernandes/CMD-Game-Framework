@@ -1,7 +1,9 @@
+[![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/deyvidfernandes/CommandPromptGame/main/README.pt-br.md)
+
 # Command Prompt Game
 
-Um jogo baseado em turnos rodando apenas no Command Prompt.
+A CMD turn-based ASCII RPG game made with Java
 
-## Objetivos do Projeto
+## Project Objectives
 
-Estou desenvolvendo este projeto para praticar boas práticas de desenvolvimento em Java, criação de testes, OOP, versionamento com Git e outras habilidades.
+I am working on this project to improve and pratice good pratices in Java development, OOP, unit tests, Git versioning and other skills.
