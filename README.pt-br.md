@@ -1,4 +1,4 @@
-[![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/deyvidfernandes/CommandPromptGame/main/README.md)
+[![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/deyvidfernandes/CommandPromptGame/blob/d8ff6f04cc681a18ac1e307dec212b7c16fdb225/README.md)
 
 # Command Prompt Game
 
