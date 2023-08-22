@@ -1,4 +1,4 @@
-[![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)]()
+[![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/deyvidfernandes/CMD-Game-Framework/blob/main/README.pt-br.md)
 
 # CMD Game Framework
 
