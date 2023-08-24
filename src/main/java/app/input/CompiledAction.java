@@ -5,12 +5,10 @@ import java.util.ArrayList;
 
 public class CompiledAction {
 	private ArrayList<BasicAction> basicActionsList = new ArrayList<BasicAction>();
-	private String representation; 
 	private int turnsToRun;
 	
-	public CompiledAction(ArrayList<BasicAction> basicActionsList, String Representation) {
+	public CompiledAction(ArrayList<BasicAction> basicActionsList) {
 		this.basicActionsList = basicActionsList;
-		this.representation = representation;
 		this.turnsToRun = basicActionsList.size();
 	}
 	
@@ -18,13 +16,8 @@ public class CompiledAction {
 		this.basicActionsList = new ArrayList<BasicAction>();
 		basicActionsList.add(basicAction);
 		this.turnsToRun = 1;
-		this.representation = representation;
 	}
 	
-	public CompiledAction(ArrayList<BasicAction> basicActionsList) {
-		this.basicActionsList = basicActionsList;
-		this.turnsToRun = basicActionsList.size();
-	}
 	
 	public CompiledAction(BasicAction basicAction) {
 		this.basicActionsList = new ArrayList<BasicAction>();

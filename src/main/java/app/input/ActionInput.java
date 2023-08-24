@@ -156,7 +156,7 @@ public class ActionInput {
 			compiledBasicActionList.add(basicAction);
 		}
 
-		return new CompiledAction(compiledBasicActionList, actionScript);
+		return new CompiledAction(compiledBasicActionList);
 	}
 	
 	private static CompiledAction compileActionScript(ArrayList<String> basicActionList) {
