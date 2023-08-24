@@ -11,6 +11,12 @@ import app.xutility.exceptions.InvalidUserInput;
 
 public class ActionInput {
 	
+	enum actionInputTypes {
+		BASIC_ACTION,
+		ACTION_SCRIPT,
+		COMPLEX_ACTION_SCRIPT
+	}
+	
 	private static boolean validateBasicActionInput(String input) throws InvalidUserInput {
 		
 		try {
@@ -82,13 +88,13 @@ public class ActionInput {
 		return true;
 	}
 	
-	private static String identifyActionInputType(String input) throws InvalidUserInput {
+	private static actionInputTypes identifyActionInputType(String input) {
 		if (input.contains("(") || input.contains(")")) {
-			return "complex action script";
+			return actionInputTypes.COMPLEX_ACTION_SCRIPT;
 		} else if (input.contains("-")) {
-			return "action script";
+			return actionInputTypes.ACTION_SCRIPT;
 		} else {
-			return "basic action";
+			return actionInputTypes.BASIC_ACTION;
 		}
 	}
 	
@@ -212,20 +218,20 @@ public class ActionInput {
 	}
 	
 	public static CompiledAction compile(String input) throws InvalidUserInput {
-		String actionInputType = identifyActionInputType(input);
+		actionInputTypes actionInputType = identifyActionInputType(input);
 		switch(actionInputType) {
-		case "basic action":
+		case BASIC_ACTION:
 			validateBasicActionInput(input);
 			return compileBasicAction(input);
-		case "action script":
+		case ACTION_SCRIPT:
 			validateActionScriptInput(input);
 			return compileActionScript(input);
-		case "complex action script":
+		case COMPLEX_ACTION_SCRIPT:
 			validateActionScriptInput(input);
 			String actionScript = translateComplexActionScript_to_actionScript(input);
 			return compileActionScript(actionScript);
 		default:
-			throw new InvalidUserInput("Non-identified");
+			throw new Error();
 		}
 	}
 	
