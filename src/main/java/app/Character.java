@@ -3,7 +3,6 @@ import java.util.Arrays;
 
 import app.Game.directionInputs;
 import app.xutility.*;
-import app.xutility.exceptions.InvalidMethodInput;
 
 public class Character extends Entity {	
 	private String character_type;
@@ -18,7 +17,7 @@ public class Character extends Entity {
 		this.character_type = character_type;
 	}
 	
-	public Boolean walk(directionInputs direction) throws InvalidMethodInput {
+	public Boolean walk(directionInputs direction) throws IllegalArgumentException {
 		return this.move(direction);
 	}
 			

@@ -1,6 +1,5 @@
 package app;
 
-import app.xutility.exceptions.InvalidMethodInput;
 import app.Game.directionInputs;
 import app.xutility.Xarray;
 
@@ -34,7 +33,7 @@ public abstract class Entity {
 	}
 	
 	
-	private int[] convertDirToXY(directionInputs direction) throws InvalidMethodInput {
+	private int[] convertDirToXY(directionInputs direction) throws IllegalArgumentException {
 		switch (direction) {
 			case  W:
 				return new int[] {0, -1};
@@ -58,7 +57,7 @@ public abstract class Entity {
 		}
 	}
 	
-	public boolean move(directionInputs direction) throws InvalidMethodInput {
+	public boolean move(directionInputs direction) throws IllegalArgumentException {
 		int[] positionVariation = this.convertDirToXY(direction);
 		Tile current_tile = this.current_map.getTile(this.position);
 		

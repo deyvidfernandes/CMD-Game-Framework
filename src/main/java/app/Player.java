@@ -4,7 +4,6 @@ import app.Game.actionInputs;
 import app.Game.directionInputs;
 
 import app.input.BasicAction;
-import app.xutility.exceptions.InvalidMethodInput;
 
 public final class Player extends Character {
 	Player(Map map, int x, int y) {
@@ -69,7 +68,7 @@ public final class Player extends Character {
 		case W:
 			try {
 				this.walk(basicAction.getDirection());
-			} catch(InvalidMethodInput exc) {
+			} catch(IllegalArgumentException exc) {
 				exc.printStackTrace();
 				return false;
 			}
