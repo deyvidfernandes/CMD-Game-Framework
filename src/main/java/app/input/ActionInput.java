@@ -55,9 +55,7 @@ public class ActionInput {
 		if ( input.contains("--") ) {
 			throw new InvalidUserInput("syntaxError-double separators");
 		}
-		if (//Xstring.regexFind(input, "-\\D+\\d+\\(|-\\D+\\(|^\\D+\\d+\\(") || 
-			//Xstring.regexFindExcluded(input, "\\)[^-]", "\\){2,}")  ||
-			input.contains(")(")) {
+		if (input.contains(")(")) {
 			throw new InvalidUserInput("syntaxError-missing separator");
 		}
 		if ( Xstring.regexFind(input, patternForFirstScriptRepeater)) {

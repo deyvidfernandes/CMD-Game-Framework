@@ -48,7 +48,6 @@ public class Game {
 			generateFrame(map1.getSize() * 2, 1);
 			System.out.println(map1.draw());
 			generateFrame(map1.getSize() * 2, 2);
-			//System.out.println("\n" + Arrays.toString(player.getPos()));
 			breakLines(35 - map1.getSize() - dontBreakLines);
 			dontBreakLines = 0;
 		} else {

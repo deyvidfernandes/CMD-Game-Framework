@@ -1,6 +1,6 @@
 package app.xutility.exceptions;
 
-public class InvalidUserInput extends Printable {
+public class InvalidUserInput extends Exception implements Printable  {
 	private static final long serialVersionUID = -8726797605721125639L;
 	private String invalidInput;
 	private String charLabel;
@@ -27,12 +27,10 @@ public class InvalidUserInput extends Printable {
 		return this.charLabel;
 	}
 	
-	@Override
 	public String getInvalidInput() {
 		return this.invalidInput;
 	}
 
-	@Override
 	public String getId() {
 		return this.id;
 	}
