@@ -1,7 +1,7 @@
 package app;
 
 import app.xutility.exceptions.InvalidMethodInput;
-
+import app.Game.directionInputs;
 import app.xutility.Xarray;
 
 public abstract class Entity {
@@ -34,18 +34,18 @@ public abstract class Entity {
 	}
 	
 	
-	private int[] convertDirToXY(String dir) throws InvalidMethodInput {
-		switch (dir) {
-			case "w":
+	private int[] convertDirToXY(directionInputs direction) throws InvalidMethodInput {
+		switch (direction) {
+			case  W:
 				return new int[] {0, -1};
-			case "s":
+			case S:
 				return new int[] {0, 1};
-			case "a":
+			case A:
 				return new int[] {-1, 0};
-			case "d":
+			case D:
 				return new int[] {1, 0};
 			default:
-				throw new InvalidMethodInput("convertDirToXY", dir);
+				throw new IllegalArgumentException(direction.name() + " is not a valid argument for convertDirToXY(directionInputs direction)");
 		}
 	}
 	
@@ -58,8 +58,8 @@ public abstract class Entity {
 		}
 	}
 	
-	public boolean move(String dir) throws InvalidMethodInput {
-		int[] positionVariation = this.convertDirToXY(dir);
+	public boolean move(directionInputs direction) throws InvalidMethodInput {
+		int[] positionVariation = this.convertDirToXY(direction);
 		Tile current_tile = this.current_map.getTile(this.position);
 		
 		if (this.checkMovment(positionVariation)) {

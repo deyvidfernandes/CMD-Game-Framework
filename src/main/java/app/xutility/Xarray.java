@@ -9,7 +9,7 @@ public class Xarray {
 		return returnVec;
 	}
 	
-	static public boolean containsElement(Object[] vector, Object element) {
+	static public boolean arrayContainsElement(Object[] vector, Object element) {
 		for (int i = 0; i < vector.length; i++) {
 			if ( vector[i].equals(element)) {
 				return true;

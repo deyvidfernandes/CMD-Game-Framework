@@ -1,5 +1,7 @@
 package app;
 import java.util.Arrays;
+
+import app.Game.directionInputs;
 import app.xutility.*;
 import app.xutility.exceptions.InvalidMethodInput;
 
@@ -16,8 +18,8 @@ public class Character extends Entity {
 		this.character_type = character_type;
 	}
 	
-	public Boolean walk(String dir) throws InvalidMethodInput {
-		return this.move(dir);
+	public Boolean walk(directionInputs direction) throws InvalidMethodInput {
+		return this.move(direction);
 	}
 			
 }

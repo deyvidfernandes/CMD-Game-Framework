@@ -1,5 +1,8 @@
 package app;
 
+import app.Game.actionInputs;
+import app.Game.directionInputs;
+
 import app.input.BasicAction;
 import app.xutility.exceptions.InvalidMethodInput;
 
@@ -18,39 +21,37 @@ public final class Player extends Character {
 		}
 	}
 	
-	public boolean hit(String dir) {
+	public boolean hit(directionInputs dir) {
 
 		switch (dir) {
-		case "w":
+		case W:
 			if (this.checkMine(0, -1)) {
 				current_map.getTile(this.position[0], this.position[1] - 1).getContent().receiveDamage(1);
 			} else {
 				return false;
 			}
 			break;
-		case "s":
+		case S:
 			if (this.checkMine(0, 1)) {
 				current_map.getTile(this.position[0], this.position[1] + 1).getContent().receiveDamage(1);	
 			} else {
 				return false;
 			}
 			break;
-		case "a":
+		case A:
 			if (this.checkMine(-1, 0)) {
 				current_map.getTile(this.position[0] - 1, this.position[1]).getContent().receiveDamage(1);
 			} else {
 				return false;
 			}
 			break;
-		case "d":
+		case D:
 			if (this.checkMine(1, 0)) {
 				current_map.getTile(this.position[0] + 1, this.position[1]).getContent().receiveDamage(1);
 			} else {
 				return false;
 			}
 			break;
-		case "terminate":
-			return false;
 		default:
 			return false;
 		}
@@ -61,13 +62,13 @@ public final class Player extends Character {
 	
 	public boolean act(BasicAction basicAction) {
 		
-		switch(basicAction.action) {
-		case "h":
-			hit(basicAction.direction);
+		switch(basicAction.getAction()) {
+		case H:
+			hit(basicAction.getDirection());
 			return true;
-		case "w":
+		case W:
 			try {
-				this.walk(basicAction.direction);
+				this.walk(basicAction.getDirection());
 			} catch(InvalidMethodInput exc) {
 				exc.printStackTrace();
 				return false;

@@ -40,17 +40,17 @@ public class CompiledAction {
 		return this.basicActionsList.get(index);
 	}
 	
-	public String getString() {
-		String productString = "";
-		for (int i = 0; i < this.basicActionsList.size(); i++) {
-			BasicAction basicAction = basicActionsList.get(i);
-			productString += basicAction.action + basicAction.direction;
-			if (i < this.basicActionsList.size() - 1) {
-				productString += "-";
-			}
-		}
-		
-		return productString;
-	}
-	
+//	public String getString() {
+//		String productString = "";
+//		for (int i = 0; i < this.basicActionsList.size(); i++) {
+//			BasicAction basicAction = basicActionsList.get(i);
+//			productString += basicAction.action + basicAction.direction;
+//			if (i < this.basicActionsList.size() - 1) {
+//				productString += "-";
+//			}
+//		}
+//		
+//		return productString;
+//	}
+//	
 }

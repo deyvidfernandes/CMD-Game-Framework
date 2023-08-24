@@ -13,8 +13,10 @@ import app.xutility.exceptions.Printable;
 
 public class Game {
 	
-	static public String[] directionValidInputs = {"a", "s", "w", "d"};
-	static public String[] actionValidInputs = {"w", "h"};
+	public enum directionInputs { A, S, W, D }
+	
+	public enum actionInputs { W, H }
+	
 	
 	static private Map map1 = new Map(16);
 	static private Player player = new Player(map1, 1, 1);

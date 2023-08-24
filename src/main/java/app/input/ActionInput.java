@@ -6,6 +6,7 @@ import java.util.Arrays;
 import app.Game;
 import app.xutility.Xstring;
 import app.xutility.Xarray;
+import app.xutility.Xenum;
 import app.xutility.exceptions.InvalidUserInput;
 
 public class ActionInput {
@@ -14,7 +15,7 @@ public class ActionInput {
 		
 		try {
 			String char1 = String.valueOf(input.charAt(0));
-			if (!Xarray.containsElement(Game.actionValidInputs, char1)) {
+			if (!Xenum.containsStringElement(Game.actionInputs.values(), char1)) {
 				throw new InvalidUserInput(char1, "action", "action-invalid input");
 			}
 		} catch (IndexOutOfBoundsException exc) {
@@ -23,7 +24,7 @@ public class ActionInput {
 		
 		try {
 			String char2 = String.valueOf(input.charAt(1));
-			if (!Xarray.containsElement(Game.directionValidInputs, char2)) {
+			if (!Xenum.containsStringElement(Game.directionInputs.values(), char2)) {
 				throw new InvalidUserInput(char2, "direction", "direction-invalid input");
 			}
 		} catch (IndexOutOfBoundsException exc) {
