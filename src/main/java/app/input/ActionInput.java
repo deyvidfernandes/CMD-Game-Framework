@@ -99,21 +99,13 @@ public class ActionInput {
 	}
 	
 	private static BasicAction processBasicAction(String input) {
-		int times;
 		String action = String.valueOf(input.charAt(0));
 		String direction = String.valueOf(input.charAt(1));
-		
-		if (input.length() < 3) {
-			times = 1;
-		} else {
-			times = Integer.valueOf(input.substring(2));
-		}
 		
 		return new BasicAction(direction, action);
 	}
 	
 	private static CompiledAction compileBasicAction(String input) {
-		int times;
 		CompiledAction compiledAction;
 		String action = String.valueOf(input.charAt(0));
 		String direction = String.valueOf(input.charAt(1));
