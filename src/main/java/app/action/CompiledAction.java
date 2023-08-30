@@ -1,26 +1,26 @@
-package app.input;
+package app.action;
 
 import java.util.List;
 import java.util.ArrayList;
 
 public class CompiledAction {
-	private ArrayList<BasicAction> basicActionsList = new ArrayList<BasicAction>();
+	private ArrayList<UnitaryAction> basicActionsList = new ArrayList<UnitaryAction>();
 	private int turnsToRun;
 	
-	public CompiledAction(ArrayList<BasicAction> basicActionsList) {
+	public CompiledAction(ArrayList<UnitaryAction> basicActionsList) {
 		this.basicActionsList = basicActionsList;
 		this.turnsToRun = basicActionsList.size();
 	}
 	
-	public CompiledAction(BasicAction basicAction, String Representation) {
-		this.basicActionsList = new ArrayList<BasicAction>();
+	public CompiledAction(UnitaryAction basicAction, String Representation) {
+		this.basicActionsList = new ArrayList<UnitaryAction>();
 		basicActionsList.add(basicAction);
 		this.turnsToRun = 1;
 	}
 	
 	
-	public CompiledAction(BasicAction basicAction) {
-		this.basicActionsList = new ArrayList<BasicAction>();
+	public CompiledAction(UnitaryAction basicAction) {
+		this.basicActionsList = new ArrayList<UnitaryAction>();
 		basicActionsList.add(basicAction);
 		this.turnsToRun = 1;
 	}
@@ -29,7 +29,7 @@ public class CompiledAction {
 		return this.turnsToRun;
 	}
 	
-	public BasicAction getAction(int index) {
+	public UnitaryAction getAction(int index) {
 		return this.basicActionsList.get(index);
 	}
 	

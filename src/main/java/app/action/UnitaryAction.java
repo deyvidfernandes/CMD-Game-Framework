@@ -1,14 +1,14 @@
-package app.input;
+package app.action;
 
 import app.Game.actionInputs;
 import app.Game.directionInputs;
 import app.xutility.Xenum;
 
-public class BasicAction {
+public class UnitaryAction {
 	private directionInputs direction;
 	private actionInputs action;
 	
-	public BasicAction(String direction, String action) {
+	public UnitaryAction(String direction, String action) {
 		this.direction = Xenum.convertToConstant(directionInputs.values(), direction);
 		this.action = Xenum.convertToConstant(actionInputs.values(), action);
 	}
