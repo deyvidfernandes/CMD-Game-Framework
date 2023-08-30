@@ -12,13 +12,6 @@ public class CompiledAction {
 		this.turnsToRun = basicActionsList.size();
 	}
 	
-	public CompiledAction(UnitaryAction basicAction, String Representation) {
-		this.basicActionsList = new ArrayList<UnitaryAction>();
-		basicActionsList.add(basicAction);
-		this.turnsToRun = 1;
-	}
-	
-	
 	public CompiledAction(UnitaryAction basicAction) {
 		this.basicActionsList = new ArrayList<UnitaryAction>();
 		basicActionsList.add(basicAction);
