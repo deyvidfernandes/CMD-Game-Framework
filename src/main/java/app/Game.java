@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 import app.action.CloseAction;
 import app.action.CompiledAction;
-import app.userInput.ActionInput;
 import app.userInput.CompiledCommandDTO;
 import app.userInput.InputHandler;
 import app.userInput.command.Command;
