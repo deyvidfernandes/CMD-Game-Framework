@@ -1,12 +1,13 @@
 package app;
 
-import app.Game.actionInputs;
+import app.Game.CloseActionInputs;
 import app.Game.directionInputs;
-
-import app.input.BasicAction;
+import app.action.CloseAction;
+import app.action.RangedAction;
+import app.action.UnitaryAction;
 
 public final class Player extends Character {
-	Player(Map map, int x, int y) {
+	Player(GameMap map, int x, int y) {
 		super(map, "player", x, y);
 		map.setPlayer(this);
 	}
@@ -59,15 +60,44 @@ public final class Player extends Character {
 		
 	}
 	
-	public boolean act(BasicAction basicAction) {
-		
-		switch(basicAction.getAction()) {
+	
+	public boolean act(UnitaryAction genericUnitaryAction) {
+		if (genericUnitaryAction instanceof CloseAction) {
+			CloseAction closeUnitaryAction = (CloseAction) genericUnitaryAction;
+			return doCloseAction(closeUnitaryAction);
+		} else if (genericUnitaryAction instanceof RangedAction) {
+			RangedAction closeUnitaryAction = (RangedAction) genericUnitaryAction;
+			return true; //doRangedAction(closeUnitaryAction);
+		}
+		return true;
+	}
+	
+	private boolean doCloseAction(CloseAction closeUnitaryAction) {
+		switch(closeUnitaryAction.getAction()) {
 		case H:
-			hit(basicAction.getDirection());
+			hit(closeUnitaryAction.getDirection());
 			return true;
 		case W:
 			try {
-				this.walk(basicAction.getDirection());
+				this.walk(closeUnitaryAction.getDirection());
+			} catch(IllegalArgumentException exc) {
+				exc.printStackTrace();
+				return false;
+			}
+				return true;
+		default:
+			return false;
+		}
+	}
+	
+	private boolean doRangedAction(CloseAction closeUnitaryAction) {
+		switch(closeUnitaryAction.getAction()) {
+		case H:
+			hit(closeUnitaryAction.getDirection());
+			return true;
+		case W:
+			try {
+				this.walk(closeUnitaryAction.getDirection());
 			} catch(IllegalArgumentException exc) {
 				exc.printStackTrace();
 				return false;
@@ -77,5 +107,4 @@ public final class Player extends Character {
 			return false;
 		}
 	}
-	
 }

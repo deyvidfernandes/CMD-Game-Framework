@@ -1,26 +1,26 @@
 package app.action;
 
 import app.Coordinate;
-import app.Game.actionInputs;
+import app.Game.RangedActionInputs;
 import app.Game.directionInputs;
 import app.xutility.Xenum;
 
 public class RangedAction implements UnitaryAction {
 	private directionInputs direction;
 	private Coordinate relativeCoord;
-	private actionInputs action;
+	private RangedActionInputs action;
 	private boolean goThroughObstacle = true;
 	
 	public RangedAction(Coordinate relativeCoord, String action) {
 		this.relativeCoord = relativeCoord;
-		this.action = Xenum.convertToConstant(actionInputs.values(), action);
+		this.action = Xenum.convertToConstant(RangedActionInputs.values(), action);
 	}
 	
 	public directionInputs getDirection() {
 		return direction;
 	}
 
-	public actionInputs getAction() {
+	public RangedActionInputs getAction() {
 		return action;
 	}
 	

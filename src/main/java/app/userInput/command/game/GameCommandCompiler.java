@@ -1,108 +1,21 @@
-package app.input;
+package app.userInput.command.game;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import app.Game;
-import app.xutility.Xstring;
+import app.action.CloseAction;
+import app.action.CompiledAction;
+import app.action.UnitaryAction;
 import app.xutility.Xarray;
-import app.xutility.Xenum;
+import app.xutility.Xstring;
 import app.xutility.exceptions.InvalidUserInput;
 
-public class ActionInput {
-	
-	enum actionInputTypes {
-		BASIC_ACTION,
-		ACTION_SCRIPT,
-		COMPLEX_ACTION_SCRIPT
-	}
-	
-	private static boolean validateBasicActionInput(String input) throws InvalidUserInput {
-		
-		try {
-			String char1 = String.valueOf(input.charAt(0));
-			if (!Xenum.containsStringElement(Game.actionInputs.values(), char1)) {
-				throw new InvalidUserInput(char1, "action", "action-invalid input");
-			}
-		} catch (IndexOutOfBoundsException exc) {
-			throw new InvalidUserInput("none", "action", "action-missing");
-		}
-		
-		try {
-			String char2 = String.valueOf(input.charAt(1));
-			if (!Xenum.containsStringElement(Game.directionInputs.values(), char2)) {
-				throw new InvalidUserInput(char2, "direction", "direction-invalid input");
-			}
-		} catch (IndexOutOfBoundsException exc) {
-			throw new InvalidUserInput("none", "direction", "direction-missing");
-		}
-		
-		if (input.length() > 2) {
-			String timesInput = input.substring(2);
-			try {
-				int timesInput_int = Integer.parseInt(timesInput);
-				if (timesInput_int == 0) {
-					throw new InvalidUserInput(timesInput, "times", "times-invalid input");
-				}
-			} catch(NumberFormatException exc) {
-				throw new InvalidUserInput(timesInput, "times", "times-invalid input");
-			} 
-		}
-		return true;
-	}
-	
-	private static boolean validateActionScriptInput(String input) throws InvalidUserInput {
-		String[] basicActionInputArray;
-		String patternForFirstScriptRepeater = "[^-\\(\\d]+\\d*\\(|^0+\\(|-0+\\(";
-		
-		if ( ( Xstring.countOccurrencesOf(input, "(") - Xstring.countOccurrencesOf(input, ")") ) != 0) {
-			throw new InvalidUserInput("syntaxError-parentheses placed wrong");
-		}
-		
-		if ( input.contains("--") ) {
-			throw new InvalidUserInput("syntaxError-double separators");
-		}
-		if (input.contains(")(")) {
-			throw new InvalidUserInput("syntaxError-missing separator");
-		}
-		if ( Xstring.regexFind(input, patternForFirstScriptRepeater)) {
-			throw new InvalidUserInput("none", "scriptRepeater", "scriptRepeater-invalid input");
-		}
-
-
-
-		if ( input.contains("()") ) {
-			throw new InvalidUserInput("syntaxError-empty action group");
-		}
-		
-		if ( input.contains("(-") || input.contains("-)")) {
-			throw new InvalidUserInput("snytaxError");
-		}
-		
-		basicActionInputArray = input.split("\\)-\\(|\\-\\(|\\)-\\d+\\(|-\\d+\\(|\\d+\\(|\\)-|-|\\)|\\(");
-		basicActionInputArray = Xarray.trimStringArray(basicActionInputArray);
-		for (String basicActionInput : basicActionInputArray) {
-			validateBasicActionInput(basicActionInput);
-		}
-		
-		return true;
-	}
-	
-	private static actionInputTypes identifyActionInputType(String input) {
-		if (input.contains("(") || input.contains(")")) {
-			return actionInputTypes.COMPLEX_ACTION_SCRIPT;
-		} else if (input.contains("-")) {
-			return actionInputTypes.ACTION_SCRIPT;
-		} else {
-			return actionInputTypes.BASIC_ACTION;
-		}
-	}
-	
-	private static BasicAction processBasicAction(String input) {
+public class GameCommandCompiler {
+	private static CloseAction processBasicAction(String input) {
 		String action = String.valueOf(input.charAt(0));
 		String direction = String.valueOf(input.charAt(1));
 		
-		return new BasicAction(direction, action);
+		return new CloseAction(direction, action);
 	}
 	
 	private static CompiledAction compileBasicAction(String input) {
@@ -111,7 +24,7 @@ public class ActionInput {
 		String direction = String.valueOf(input.charAt(1));
 		
 		if (input.length() < 3) {
-			compiledAction = new CompiledAction(new BasicAction(direction, action));
+			compiledAction = new CompiledAction(new CloseAction(direction, action));
 		} else {
 			compiledAction = compileActionScript(multiplyBasicAction(input));
 			
@@ -120,7 +33,7 @@ public class ActionInput {
 		return compiledAction;
 	}
 	
-	public static ArrayList<String> multiplyActionsInScript(String[] basicActionArray) {
+	private static ArrayList<String> multiplyActionsInScript(String[] basicActionArray) {
 		ArrayList<String> basicActionList = new ArrayList<String>(Arrays.asList(basicActionArray));
 		for (int index = 0; index < basicActionList.size(); index++) {
 			String basicAction = basicActionList.get(index);
@@ -134,7 +47,7 @@ public class ActionInput {
 		return basicActionList;
 	}
 	
-	public static ArrayList<String> multiplyBasicAction(String basicActionString) {
+	private static ArrayList<String> multiplyBasicAction(String basicActionString) {
 		ArrayList<String> productActionScript = new ArrayList<String>(); 
 		int repeater = Integer.parseInt(basicActionString.substring(2));
 		String basicActionBody = basicActionString.substring(0, 2);
@@ -145,12 +58,12 @@ public class ActionInput {
 	}
 	
 	private static CompiledAction compileActionScript(String actionScript) {
-		ArrayList<BasicAction> compiledBasicActionList = new ArrayList<BasicAction>();
+		ArrayList<UnitaryAction> compiledBasicActionList = new ArrayList<UnitaryAction>();
 		String[] basicActionArray = actionScript.split("-");
 		basicActionArray = Xarray.trimStringArray(basicActionArray);
 		ArrayList<String> basicActionList = multiplyActionsInScript(basicActionArray);
 		for (String basicActionString : basicActionList) {
-			BasicAction basicAction = processBasicAction(basicActionString);
+			CloseAction basicAction = processBasicAction(basicActionString);
 			compiledBasicActionList.add(basicAction);
 		}
 
@@ -158,16 +71,16 @@ public class ActionInput {
 	}
 	
 	private static CompiledAction compileActionScript(ArrayList<String> basicActionList) {
-		ArrayList<BasicAction> compiledBasicActionList = new ArrayList<BasicAction>();
+		ArrayList<UnitaryAction> compiledBasicActionList = new ArrayList<UnitaryAction>();
 		for (String basicActionString : basicActionList) {
-			BasicAction basicAction = processBasicAction(basicActionString);
+			UnitaryAction basicAction = processBasicAction(basicActionString);
 			compiledBasicActionList.add(basicAction);
 		}
 		
 		return new CompiledAction(compiledBasicActionList);
 	}
 	
-	public static String translateComplexActionScript_to_actionScript(String complexActionScript) {
+	private static String translateComplexActionScript_to_actionScript(String complexActionScript) {
 //		2(ws2-hd3-wa3)-9(hs-hd2-wd-3(wd1-wa2)-hw2)
 		String compiledActionScript_inProcess = new String(complexActionScript);
 		
@@ -209,22 +122,17 @@ public class ActionInput {
 		return compiledActionScript_inProcess;
 	}
 	
-	public static CompiledAction compile(String input) throws InvalidUserInput {
-		actionInputTypes actionInputType = identifyActionInputType(input);
-		switch(actionInputType) {
+	public static CompiledAction compile(String input, GameCommand.types gameCommandInputType) throws InvalidUserInput {
+		switch(gameCommandInputType) {
 		case BASIC_ACTION:
-			validateBasicActionInput(input);
 			return compileBasicAction(input);
 		case ACTION_SCRIPT:
-			validateActionScriptInput(input);
 			return compileActionScript(input);
 		case COMPLEX_ACTION_SCRIPT:
-			validateActionScriptInput(input);
 			String actionScript = translateComplexActionScript_to_actionScript(input);
 			return compileActionScript(actionScript);
 		default:
 			throw new Error();
 		}
 	}
-	
 }

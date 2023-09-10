@@ -6,16 +6,16 @@ public class Tile {
 	private Entity content;
 	private String floor;
 	private int[] position;
-	private Map current_map;
+	private GameMap current_map;
 	
-	Tile(Map current_map, Entity content, String floor, int[] position) {
+	Tile(GameMap current_map, Entity content, String floor, int[] position) {
 		this.current_map = current_map;
 		this.content = content;
 		this.floor = floor;
 		this.position = position;
 	}
 
-	Tile(Map current_map, Entity content, String floor, int x, int y) {
+	Tile(GameMap current_map, Entity content, String floor, int x, int y) {
 		final int[] position = {x, y};
 		this.current_map = current_map;
 		this.content = content;
@@ -23,13 +23,13 @@ public class Tile {
 		this.position = position;
 	}
 	
-	Tile(Map current_map, String floor, int[] position) {
+	Tile(GameMap current_map, String floor, int[] position) {
 		this.current_map = current_map;
 		this.floor = floor;
 		this.position = position;
 	}
 
-	Tile(Map current_map, String floor, int x, int y) {
+	Tile(GameMap current_map, String floor, int x, int y) {
 		final int[] position = {x, y};
 		this.current_map = current_map;
 		this.floor = floor;

@@ -1,56 +1,29 @@
 package app;
 
-import app.input.BasicAction;
-import app.input.CompiledAction;
+import app.action.CloseAction;
+import app.action.CompiledAction;
+import app.action.UnitaryAction;
 
-public class Simulation extends Game {
-	private boolean simulationRunning = false;
-	private int simulationLength;
-	private int simulationTurnIndex = 0;
+public class Simulation {
+	private int length;
+	private int turnIndex = 0;
+	private CompiledAction actionScript;
 	
-	Simulation(int simulationLength) {
-		this.simulationRunning = false;
-		this.simulationLength = simulationLength;
-	}
-	
-	public int getSimulationLength() {
-		return this.simulationLength;
-	}
-	private void setSimulationLength(int simulationLength) {
-		this.simulationLength = simulationLength;
-	}
-	public int getTurnIndex() {
-		return simulationTurnIndex;
-	}
-	private void setSimulationTurnIndex(int simulationTurnIndex) {
-		this.simulationTurnIndex = simulationTurnIndex;
-	}
-	private void setSimulationRunning(boolean simulationRunning) {
-		this.simulationRunning = simulationRunning;
+	Simulation(CompiledAction compiledAction) {
+		this.length = compiledAction.getTurnsToRun();
+		this.actionScript = compiledAction;
 	}
 
-	public boolean isSimulationRunning() {
-		return this.simulationRunning;
-	}
-	public void start() {
-		this.setSimulationRunning(true);
-	}
 	public void end() {
-		this.setSimulationRunning(false);
-		super.setInSimulation(false);
-		lastRenderInSimulation = true;
+		Game.setInSimulation(false);
 	}
 	
-	private void incrementSimulationTurnIndex(int increment) {
-		this.simulationTurnIndex = simulationTurnIndex + increment;
-	}
-	
-	public void runTurn(CompiledAction compiledAction) throws InterruptedException {
-		if ( this.getTurnIndex() < this.getSimulationLength() ) {
+	public void runTurn() throws InterruptedException {
+		if (this.turnIndex < this.length) {
 			correctLineBreaking();
-			BasicAction turnBasicAction = compiledAction.getAction(this.getTurnIndex());
-			this.incrementSimulationTurnIndex(1);
-			getPlayer().act(turnBasicAction);
+			CompiledAction turnBasicAction = new CompiledAction(actionScript.getAction(turnIndex));
+			this.turnIndex++;
+			Game.runTurn(turnBasicAction);
 			Thread.sleep(800);
 		} else {
 			this.end();
@@ -58,8 +31,12 @@ public class Simulation extends Game {
 	}
 
 	private void correctLineBreaking() {
-		if ( this.getTurnIndex() == this.getSimulationLength() - 1) {
+		if ( this.turnIndex == this.length - 1) {
 		}
+	}
+
+	public void start() {
+		Game.setInSimulation(true);
 	}
 	
 }

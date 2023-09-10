@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import app.input.ActionInput;
-import app.input.BasicAction;
-import app.input.CompiledAction;
+import app.action.CloseAction;
+import app.action.CompiledAction;
+import app.userInput.ActionInput;
+import app.userInput.CompiledCommandDTO;
+import app.userInput.InputHandler;
+import app.userInput.command.Command;
+import app.userInput.command.meta.MetaCommand;
 import app.xutility.Xstring;
 import app.xutility.exceptions.InvalidUserInput;
 import app.xutility.exceptions.Printable;
@@ -15,20 +19,19 @@ public class Game {
 	
 	public enum directionInputs { A, S, W, D }
 	
-	public enum actionInputs { W, H }
+	public enum CloseActionInputs { W, H }
+	public enum RangedActionInputs { INSPECT, S }
 	
 	
-	static private Map map1 = new Map(16);
+	static private GameMap map1 = new GameMap(16);
 	static private Player player = new Player(map1, 1, 1);
-	static private Scanner keyboard = new Scanner(System.in);
-	
+	static Scanner keyboard = new Scanner(System.in);
 	static private Simulation currentSimulation;
 	static private int dontBreakLines = 0;
 	static private boolean inSimulation = false;
 	static private boolean turnAuthorized = true;
 	static public boolean lastRenderInSimulation = false;
 	static private String userErrorMessage;
-	static private CompiledAction compiledActionInput;	
 	
 	static protected Player getPlayer() {
 		return player;
@@ -104,46 +107,48 @@ public class Game {
 
 	}
 	
-	static public void validateConvertUserInput(String input) {
-//		try {
-//			//userInput = new UserInput(input);
-//		} catch (InvalidUserInput exc) {
-//			turnAuthorized = false;
-//			userErrorMessage = generateErrorMessage(exc);
-//		}
-	}	
-	
-	static public void processInput() {
-		if (!inSimulation) {
+	static public void updateLogic() throws InterruptedException {		
+		if (inSimulation) {
+	        currentSimulation.runTurn();
+	    } else {
 			try {
-				compiledActionInput = ActionInput.compile(keyboard.nextLine());
-				turnAuthorized = true;
-				if (compiledActionInput.getTurnsToRun() > 1 && turnAuthorized) {
-					startNewSimulation(compiledActionInput.getTurnsToRun());
-				}
+				String input = keyboard.nextLine();
+		        CompiledCommandDTO command = InputHandler.handle(input);
+		        executeCommand(command);
 			} catch (InvalidUserInput exc) {
-				turnAuthorized = false;
 				userErrorMessage = generateErrorMessage(exc);
 			}
-		}
+	    }
 	}
 	
-	static public void updateLogic() throws InterruptedException {		
-		if (turnAuthorized && inSimulation) {
-			currentSimulation.runTurn(compiledActionInput);
-		} else if (turnAuthorized) {
-			runTurn(compiledActionInput);
-		}
+	private static void executeCommand(CompiledCommandDTO command) {
+	    Command.types commandType = command.getType();
+		
+		if (commandType.equals(Command.types.GAME_COMMAND)) {
+			CompiledAction gameCommand = command.getCompiledAction();
+			
+			if (gameCommand.getTurnsToRun() > 1) {
+				startNewSimulation(gameCommand);
+			}
+			
+	        runTurn(gameCommand);
+	    } else if (commandType.equals(Command.types.META_COMMAND)) {
+	        applyMetaCommand(command.getMetaCommand());
+	    }
 	}
-	
-	static private void runTurn(CompiledAction compiledActionInput) {
+
+	private static void applyMetaCommand(MetaCommand metaCommand) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	static public void runTurn(CompiledAction compiledActionInput) {
 		player.act(compiledActionInput.getAction(0));
 	}
 	
-	static public void startNewSimulation(int turnsToRun) {
-		currentSimulation = new Simulation(turnsToRun);
+	static public void startNewSimulation(CompiledAction compiledAction) {
+		currentSimulation = new Simulation(compiledAction);
 		currentSimulation.start();
-		inSimulation = true;
 	}
 
 	static public void breakLines(int num) {

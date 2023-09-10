@@ -1,13 +1,13 @@
 package app;
 
 
-public class Map {
+public class GameMap {
 	
 	private int size;
 	private Tile[][] data;
 	private Player player;
 	
-	Map(int size) {
+	GameMap(int size) {
 		data = new Tile[size][size];
 		this.size = size;
 		for (int y = 0; y < size; y++) {
